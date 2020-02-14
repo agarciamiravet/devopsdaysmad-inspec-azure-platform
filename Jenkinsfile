@@ -11,7 +11,7 @@ pipeline {
                  stage ('Inspec app tests') {
                    steps {
 
-                        withCredentials([file(credentialsId: 'inspec-azure-attributes', variable: 'inspec-azure-attributes')]) {
+                        withCredentials([file(credentialsId: 'azureattributes', variable: 'azureattributes')]) {
                               dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-inspec-azure-platform"){         
                                  sh'inspec exec . --chef-license=accept --input-file $azureattributes --reporter cli junit:testresults.xml json:output.json --no-create-lockfile  -t azure://'
                               }
