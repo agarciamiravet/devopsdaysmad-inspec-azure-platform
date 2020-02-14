@@ -24,7 +24,7 @@ pipeline {
                              dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-inspec-azure-platform"){                                   
                                    sh '''
                                         ls
-                                        curl -F 'file=@output.json' -F 'platform=azure-platform' http://localhost:5001/api/InspecResults/Upload
+                                        curl -F 'file=@output.json' -F 'platform=azure-platform' http://0d70780d.ngrok.io/api/InspecResults/Upload
                                    '''                                   
                            }                      
                         }
