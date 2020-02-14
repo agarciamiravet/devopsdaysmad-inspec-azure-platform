@@ -13,7 +13,7 @@ pipeline {
 
                         withCredentials([file(credentialsId: 'inspec-azure-attributes', variable: 'inspec-azure-attributes')]) {
                               dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-inspec-azure-platform"){         
-                                 sh'inspec exec . --chef-license=accept --input-file $inspec-azure-attributes --reporter cli junit:testresults.xml json:output.json --no-create-lockfile  -t azure://'
+                                 sh'inspec exec . --chef-license=accept --input-file $azureattributes --reporter cli junit:testresults.xml json:output.json --no-create-lockfile  -t azure://'
                               }
                         }                                                                                                    
                    }
