@@ -13,7 +13,9 @@ pipeline {
 
                         withCredentials([file(credentialsId: 'azureattributes', variable: 'azureattributes')]) {
                               dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-inspec-azure-platform"){         
+                               catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                                  sh'inspec exec . --chef-license=accept --input-file $azureattributes --reporter cli junit:testresults.xml json:output.json --no-create-lockfile  -t azure://'
+                               }
                               }
                         }                                                                                                    
                    }
@@ -24,12 +26,11 @@ pipeline {
                              dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-inspec-azure-platform"){                                   
                                    sh '''
                                         ls
-                                        curl -F 'file=@output.json' -F 'platform=azure-platform' http://0d70780d.ngrok.io/api/InspecResults/Upload
+                                        curl -F 'file=@output.json' -F 'platform=azure-platform' http://localhost:5001/api/InspecResults/Upload
                                    '''                                   
                            }                      
                         }
                     }
-
                  }
                  post {
                          always {
