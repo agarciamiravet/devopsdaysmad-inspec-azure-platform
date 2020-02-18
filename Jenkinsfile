@@ -8,7 +8,7 @@ pipeline {
          }
          stages 
          {            
-                 stage ('Inspec app tests') {
+                 stage ('Inspec Azure Platform Tests') {
                    steps {
 
                         withCredentials([file(credentialsId: 'azureattributes', variable: 'azureattributes')]) {
@@ -19,12 +19,12 @@ pipeline {
                    }
                  }
 
-                  stage('Upload tests in Grafana') {
+                  stage('Upload Azure Platform Tests to Grafana') {
                         steps {
                              dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-inspec-azure-platform"){                                   
                                    sh '''
                                         ls
-                                        curl -F 'file=@output.json' -F 'platform=azure-platform' http://0d70780d.ngrok.io/api/InspecResults/Upload
+                                        curl -F 'file=@output.json' -F 'platform=azure-platform' http://localhost:5001/api/InspecResults/Upload
                                    '''                                   
                            }                      
                         }
