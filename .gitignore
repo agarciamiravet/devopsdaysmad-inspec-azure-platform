@@ -1,0 +1,7 @@
+#vendor folder
+**/vendor/
+
+#test
+
+# vendor file
+**/inspec.lock
